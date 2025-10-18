@@ -77,14 +77,17 @@ export default function ListEntregador() {
                                         <Table.Cell>{entregador.foneFixo}</Table.Cell>
                                         <Table.Cell textAlign='center'>
 
-                                            <Button
-                                                inverted
-                                                circular
-                                                color='green'
-                                                title='Clique aqui para editar os dados deste entregador'
-                                                icon>
-                                                <Icon name='edit'/>
-                                            </Button> &nbsp;
+                                            <Link to={'/form-entregador'} state={{id: entregador.id}} style={{color: 'green'}}>
+                                                <Button
+                                                    inverted
+                                                    circular
+                                                    color='green'
+                                                    title='Clique aqui para editar os dados deste entregador'
+                                                    icon>
+                                                    <Icon name='edit'/>
+                                                </Button> &nbsp;
+                                            </Link>
+
 
                                             <Button
                                                 inverted

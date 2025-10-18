@@ -77,16 +77,21 @@ export default function ListCliente() {
                                         <Table.Cell>{cliente.foneFixo}</Table.Cell>
                                         <Table.Cell textAlign='center'>
 
-                                            <Button
-                                                inverted
-                                                circular
-                                                color='green'
-                                                title='Clique aqui para editar os dados deste cliente'
-                                                icon>
-                                                <Icon name='edit'/>
-                                            </Button> &nbsp;
+                                            <Link to="/form-cliente" state={{id: cliente.id}} style={{color: 'green'}}>
+                                                <Button
+                                                    inverted
+                                                    circular
+                                                    color='green'
+                                                    title='Clique aqui para editar os dados deste cliente'
+                                                    icon>
+
+                                                    <Icon name='edit' size={"small"}/>
+
+                                                </Button> &nbsp;
+                                            </Link>
 
                                             <Button
+                                                style={{margin: 0}}
                                                 inverted
                                                 circular
                                                 color='red'
