@@ -13,33 +13,48 @@ export default function FormProduto () {
     const [tempoEntregaMinimo, setTempoEntregaMinimo] = useState('');
     const [tempoEntregaMaximo, setTempoEntregaMaximo] = useState('');
 
+    const [listaCategoria, setListaCategoria] = useState([]);
+    const [idCategoria, setIdCategoria] = useState();
+
+
     const { state } = useLocation();
     const [idProduto, setIdProduto] = useState();
 
     useEffect(() => {
+
         if (state != null && state.id != null) {
             axios.get("http://localhost:8080/api/produto/" + state.id)
                 .then((response) => {
                     setIdProduto(response.data.id)
-                    setTitulo(response.data.titulo)
                     setCodigo(response.data.codigo)
+                    setTitulo(response.data.titulo)
                     setDescricao(response.data.descricao)
                     setValorUnitario(response.data.valorUnitario)
                     setTempoEntregaMinimo(response.data.tempoEntregaMinimo)
                     setTempoEntregaMaximo(response.data.tempoEntregaMaximo)
+                    setIdCategoria(response.data.categoriaProduto.id)
                 })
         }
+
+        axios.get("http://localhost:8080/api/categorias-produtos")
+            .then((response) => {
+                const dropDownCategorias = response.data.map(c => ({ text: c.descricao, value: c.id }));
+                setListaCategoria(dropDownCategorias);
+            })
+
     }, [state])
+
 
     function salvar() {
 
         let produtoRequest = {
-            titulo,
-            descricao,
-            codigo,
-            valorUnitario,
-            tempoEntregaMinimo,
-            tempoEntregaMaximo,
+            idCategoria: idCategoria,
+            codigo: codigo,
+            titulo: titulo,
+            descricao: descricao,
+            valorUnitario: valorUnitario,
+            tempoEntregaMinimo: tempoEntregaMinimo,
+            tempoEntregaMaximo: tempoEntregaMaximo
         }
 
         if (idProduto != null) { //Alteração:
@@ -51,8 +66,8 @@ export default function FormProduto () {
                 .then((response) => { console.log('Produto cadastrado com sucesso.') })
                 .catch((error) => { console.log('Erro ao incluir o produto.') })
         }
-
     }
+
 
     return (
 
@@ -99,6 +114,25 @@ export default function FormProduto () {
                                     onChange={e => setCodigo(e.target.value)}
                                 >
                                 </Form.Input>
+
+                            </Form.Group>
+
+                            <Form.Group>
+
+                                <Form.Select
+                                    required
+                                    width={16}
+                                    fluid
+                                    tabIndex='3'
+                                    placeholder='Selecione'
+                                    label='Categoria'
+                                    options={listaCategoria}
+                                    value={idCategoria}
+                                    onChange={(e,{value}) => {
+                                        setIdCategoria(value)
+                                    }}
+                                />
+
 
                             </Form.Group>
 
