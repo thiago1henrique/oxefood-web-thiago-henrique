@@ -116,6 +116,19 @@ export default function ListCliente() {
                                                 </Button> &nbsp;
                                             </Link>
 
+                                            <Link to="/form-cliente-endereco" state={{id: cliente.id}} style={{color: 'green'}}>
+                                                <Button
+                                                    inverted
+                                                    circular
+                                                    color='green'
+                                                    title='Clique aqui para editar o endereço deste cliente'
+                                                    icon>
+
+                                                    <Icon name='map pin' size={"small"}/>
+
+                                                </Button> &nbsp;
+                                            </Link>
+
                                             <Button
                                                 style={{margin: 0}}
                                                 inverted
